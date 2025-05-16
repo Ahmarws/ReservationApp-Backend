@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const { graphqlHTTP } = require("express-graphql");
 
 const typedefs = require("./graphql/typedefs/typedefs");
-const resolvers = require("./graphql/resolvers/resolvers");
+const rootResolver = require("./graphql/resolvers/resolvers");
 
 const app = express();
 
@@ -22,7 +22,7 @@ app.use(
   "/graphql",
   graphqlHTTP({
     schema: typedefs,
-    rootValue: resolvers,
+    rootValue: rootResolver,
     graphiql: true,
   })
 );
