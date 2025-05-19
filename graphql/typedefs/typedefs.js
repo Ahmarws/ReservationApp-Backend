@@ -53,11 +53,17 @@ const typedefs = buildSchema(`
     name: String!
     password: String!
   }
+  type authUser{
+    userId:ID!
+    token:String!
+    tokenExpiration:Int!
+  }
   
   type RootQuery {
     groups: [Group!]!
     users: [User!]!
     fields: [Field!]!
+    login(email:String!,password: String!):authUser!
   }
   
   type RootMutation {

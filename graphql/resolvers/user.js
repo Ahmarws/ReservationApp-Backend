@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../../models/user");
+const jwt = require("jsonwebtoken");
 
 const userResolvers = {
   // ----- QUERIES -----
@@ -59,6 +60,21 @@ const userResolvers = {
     await User.findByIdAndDelete(id);
     return true;
   },
+  login:async ({email,password}) => {
+    const user= await User.findOne({email:email});
+    if (!user) {
+      throw new Error("User not exist");
+      
+    }
+   const isEqual= await bcrypt.compare(password,user.password);
+   if (!isEqual) {
+    throw new Error("Wrong Password");
+   }
+   const token = jwt.sign({ userId: user.id,email:user.email }, process.env.SECRET_KEY, {
+    expiresIn: "1h",
+  });
+  return {userId:user.id,token:token,tokenExpiration:1};
+  }
 
 };
 
