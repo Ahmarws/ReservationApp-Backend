@@ -46,12 +46,14 @@ const typedefs = buildSchema(`
     email: String!
     name: String!
     password: String
+    role:String
   }
   
   input UserInput {
     email: String!
     name: String!
     password: String!
+    role:String
   }
   type authUser{
     userId:ID!

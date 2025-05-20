@@ -9,7 +9,11 @@ const fieldResolver = {
 
   // ----- MUTATIONS -----
  
-  createField: async (args) => {
+  createField: async (args,req) => {
+    if (!req.isAuth) {
+      throw new Error("unauthenticated");
+      
+    }
     const field = new Field({
       name: args.fieldInput.name,
       subFields: args.fieldInput.subFields,
@@ -20,7 +24,11 @@ const fieldResolver = {
     return field;
   },
 
-  updateField: async (args) => {
+  updateField: async (args,req) => {
+    if (!req.isAuth) {
+      throw new Error("unauthenticated");
+      
+    }
     const { id, fieldInput } = args;
 
     const updatedField = await Field.findByIdAndUpdate(
@@ -36,7 +44,11 @@ const fieldResolver = {
     return updatedField;
   },
 
-  deleteField: async (args) => {
+  deleteField: async (args,req) => {
+    if (!req.isAuth) {
+      throw new Error("unauthenticated");
+      
+    }
     const { id } = args;
     await Field.findByIdAndDelete(id);
     return true;
