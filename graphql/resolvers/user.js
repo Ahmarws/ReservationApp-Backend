@@ -11,7 +11,11 @@ const userResolvers = {
   
 
   // ----- MUTATIONS -----
-   createUser: async (args) => {
+   createUser: async (args,req) => {
+    if (!req.isAuth) {
+      throw new Error("unauthenticated");
+      
+    }
     return User.findOne({ email: args.userInput.email })
       .then((user) => {
         if (user) {
@@ -24,18 +28,23 @@ const userResolvers = {
           email: args.userInput.email,
           name: args.userInput.name,
           password: hash,
+          role: args.userInput.role || 'user',  // default to 'user' if not provided
         });
         return user.save();
       })
       .then((result) => {
-        return { ...result._doc, password: null, _id: result.id };
+        return { ...result._doc, password: null, _id: result.id ,role:result.role};
       })
       .catch((err) => {
         throw err;
       });
   },
 
-  UpdateUser: async (args) => {
+  UpdateUser: async (args,req) => {
+    if (!req.isAuth) {
+      throw new Error("unauthenticated");
+      
+    }
     const { id, userInput } = args;
 
     const updates = {
@@ -55,7 +64,11 @@ const userResolvers = {
     return updatedUser;
   },
 
-  DeleteUser: async (args) => {
+  DeleteUser: async (args,req) => {
+    if (!req.isAuth) {
+      throw new Error("unauthenticated");
+      
+    }
     const { id } = args;
     await User.findByIdAndDelete(id);
     return true;
@@ -70,10 +83,10 @@ const userResolvers = {
    if (!isEqual) {
     throw new Error("Wrong Password");
    }
-   const token = jwt.sign({ userId: user.id,email:user.email }, process.env.SECRET_KEY, {
+   const token = jwt.sign({ userId: user.id,email:user.email, role: user.role }, process.env.SECRET_KEY, {
     expiresIn: "1h",
   });
-  return {userId:user.id,token:token,tokenExpiration:1};
+  return {userId:user.id,token:token,tokenExpiration:1, role: user.role};
   }
 
 };

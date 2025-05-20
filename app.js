@@ -7,6 +7,7 @@ const { graphqlHTTP } = require("express-graphql");
 
 const typedefs = require("./graphql/typedefs/typedefs");
 const rootResolver = require("./graphql/resolvers/resolvers");
+const isauth = require("./middleware/isAuth");
 
 const app = express();
 
@@ -18,6 +19,7 @@ mongoose
 
 app.use(bodyParser.json());
 
+app.use(isauth);
 app.use(
   "/graphql",
   graphqlHTTP({
