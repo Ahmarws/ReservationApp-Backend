@@ -11,6 +11,14 @@ const typedefs = buildSchema(`
   input GroupInput {
     name: String!
   }
+  type Sport {
+    id: ID!
+    name: String!
+  }
+  
+  input SportInput {
+    name: String!
+  }
   type SubField {
     name: String!
   }
@@ -63,6 +71,7 @@ const typedefs = buildSchema(`
   
   type RootQuery {
     groups: [Group!]!
+    sports: [Sport!]!
     users: [User!]!
     fields: [Field!]!
     login(email:String!,password: String!):authUser!
@@ -72,6 +81,9 @@ const typedefs = buildSchema(`
     createGroup(groupInput: GroupInput): Group
     UpdateGroup(id:ID!, groupInput: GroupInput): Group
     DeleteGroup(id:ID!): Boolean
+    createSport(sportInput: SportInput): Sport
+    UpdateSport(id:ID!, sportInput: SportInput): Sport
+    DeleteSport(id:ID!): Boolean
     createUser(userInput: UserInput): User
     UpdateUser(id:ID!, userInput: UserInput): User
     DeleteUser(id:ID!): Boolean

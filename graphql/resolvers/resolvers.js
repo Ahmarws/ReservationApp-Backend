@@ -2,11 +2,13 @@
 const fieldResolver=require("./field")
 const userResolver=require("./user")
 const groupResolver=require("./group")
+const sportResolver=require("./sport")
 
 const rootResolver={
   ...fieldResolver,
   ...userResolver,
-  ...groupResolver
+  ...groupResolver,
+  ...sportResolver
   
 }
 
