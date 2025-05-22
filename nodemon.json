@@ -1,8 +1,0 @@
-{
-    "env":{
-        "MONGO_DB":"Reservation-db",
-        "SECRET_KEY":"reservationprojectsecretkey"
-        
-        
-    }
-}

@@ -19,7 +19,7 @@ module.exports = function isauth(req, res, next) {
 let decodedToken;
   try {
     decodedToken =jwt.verify(token, process.env.SECRET_KEY);
-    console.log("Decoded Token:", decodedToken);
+    // console.log("Decoded Token:", decodedToken);
   } catch (error) {
      req.isAuth=false;
      console.log("Token verification failed:", error.message);
