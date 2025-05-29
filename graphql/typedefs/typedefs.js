@@ -6,7 +6,7 @@ const typedefs = buildSchema(`
   type Group {
     id: ID!
     name: String!
-  }
+    }
   
   input GroupInput {
     name: String!
@@ -20,31 +20,30 @@ const typedefs = buildSchema(`
     name: String!
   }
   type SubField {
-    name: String!
+    SubFieldname: String!
   }
   
   type TimeRange {
-    start: String!
-    end: String!
+    availableHours: String!
   }
   
   type Field {
     id:ID!
-    name: String!
+    fieldName: String!
     subFields:[SubField]
     timeRanges:[TimeRange]
   }
   
   input SubFieldInput {
-    name: String!
+    SubFieldname: String!
   }
   input TimeRangeInput {
     
-    start:String!
-    end:String!
+    availableHours:String!
+
   }
   input FieldInput {
-    name: String!
+    fieldName: String!
     subFields: [SubFieldInput]
     timeRanges: [TimeRangeInput]
   }

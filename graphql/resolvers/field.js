@@ -15,7 +15,7 @@ const fieldResolver = {
       
     }
     const field = new Field({
-      name: args.fieldInput.name,
+      fieldName: args.fieldInput.fieldName,
       subFields: args.fieldInput.subFields,
       timeRanges: args.fieldInput.timeRanges,
     });
@@ -34,7 +34,7 @@ const fieldResolver = {
     const updatedField = await Field.findByIdAndUpdate(
       id,
       {
-        name: fieldInput.name,
+        fieldName: fieldInput.fieldName,
         subFields: fieldInput.subFields,
         timeRanges: fieldInput.timeRanges,
       },
